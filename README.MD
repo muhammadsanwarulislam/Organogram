@@ -1,13 +1,4 @@
-
-
-Here's a professional README.md file for your Laravel Organogram package:
-
-```markdown
 # Organogram Management Package for Laravel
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/sanwarul/organogram.svg?style=flat-square)](https://packagist.org/packages/sanwarul/organogram)
-[![Total Downloads](https://img.shields.io/packagist/dt/sanwarul/organogram.svg?style=flat-square)](https://packagist.org/packages/sanwarul/organogram)
-[![License](https://img.shields.io/packagist/l/sanwarul/organogram.svg?style=flat-square)](https://packagist.org/packages/sanwarul/organogram)
 
 A comprehensive Laravel package for managing organizational structures, specifically designed for Bangladesh government offices. This package provides tools to visualize organograms, manage employee data, and streamline reporting relationships.
 
