@@ -7,25 +7,6 @@ use Illuminate\Http\Response;
 
 trait JsonResponseTrait
 {
-
-    public function successJsonResponseWithLimitOffset($message, $option = null, $offset, $limit, $totalCount, $metaData = [], $data = [], $statusCode = Response::HTTP_OK)
-    {
-        $response = [
-            'code'    => $statusCode,
-            'message' => $message,
-            'total'   => $totalCount,
-            'meta'    => $metaData
-        ];
-
-        if ($option === 'list' || $option === 'search') {
-            $response['limit'] = $limit;
-            $response['offset'] = $offset;
-        }
-
-        $response['data'] = $data;
-
-        return response()->json($response, $statusCode);
-    }
     public function successJsonResponse($message, $data = [], $statusCode = Response::HTTP_OK)
     {
         return response()->json([

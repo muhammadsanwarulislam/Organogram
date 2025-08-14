@@ -20,17 +20,17 @@
       </div>
       
       <div class="mt-4 space-y-2">
-        <div class="flex items-center text-sm text-gray-600">
+        <div v-if="parsedMeta.address" class="flex items-center text-sm text-gray-600">
           <Icon name="mdi:map-marker" class="h-4 w-4 mr-2" />
-          {{ organization.address }}
+          {{ parsedMeta.address }}
         </div>
-        <div class="flex items-center text-sm text-gray-600">
+        <div v-if="parsedMeta.phone" class="flex items-center text-sm text-gray-600">
           <Icon name="mdi:phone" class="h-4 w-4 mr-2" />
-          {{ organization.phone }}
+          {{ parsedMeta.phone }}
         </div>
-        <div class="flex items-center text-sm text-gray-600">
+        <div v-if="parsedMeta.email" class="flex items-center text-sm text-gray-600">
           <Icon name="mdi:email" class="h-4 w-4 mr-2" />
-          {{ organization.email }}
+          {{ parsedMeta.email }}
         </div>
       </div>
       
@@ -48,10 +48,22 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   organization: {
     type: Object,
     required: true
+  }
+})
+
+const parsedMeta = computed(() => {
+  try {
+    if (typeof props.organization.metadata === 'object') {
+      return props.organization.meta;
+    }
+    return props.organization.metadata ? JSON.parse(props.organization.metadata) : {};
+  } catch (e) {
+    console.error('Error parsing metadata:', e);
+    return {};
   }
 })
 </script>

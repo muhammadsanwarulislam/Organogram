@@ -132,87 +132,95 @@
               </div>
             </div>
             
-            <!-- Address Field -->
+            <!-- metadata Fields Section -->
             <div class="space-y-1">
-              <label for="address" class="block text-sm font-medium text-gray-700 flex items-center">
-                <Icon name="mdi:map-marker" class="h-4 w-4 mr-1.5 text-teal-600" />
-                Address
-              </label>
-              <div class="relative">
-                <textarea
-                  id="address"
-                  v-model="formData.address"
-                  rows="2"
-                  :class="[
-                    'mt-1 block w-full border rounded-lg shadow-sm py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm transition resize-none',
-                    errors.address ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-teal-500'
-                  ]"
-                  placeholder="Enter address"
-                ></textarea>
-                <div class="absolute top-3 left-0 pl-3 flex items-start pointer-events-none">
-                  <Icon name="mdi:map-marker" class="h-5 w-5 text-gray-400" />
-                </div>
+              <div class="flex items-center text-sm font-medium text-gray-700 mb-2">
+                <Icon name="mdi:format-list-bulleted" class="h-4 w-4 mr-1.5 text-teal-600" />
+                Additional Information
               </div>
-              <p v-if="errors.address" class="mt-1 text-sm text-red-600 flex items-center">
-                <Icon name="mdi:alert-circle" class="h-4 w-4 mr-1" />
-                {{ errors.address }}
-              </p>
-            </div>
-            
-            <!-- Two Column Layout for Phone and Email -->
-            <div class="grid grid-cols-2 gap-4">
-              <!-- Phone Field -->
+              
+              <!-- Address Field -->
               <div class="space-y-1">
-                <label for="phone" class="block text-sm font-medium text-gray-700 flex items-center">
-                  <Icon name="mdi:phone" class="h-4 w-4 mr-1.5 text-teal-600" />
-                  Phone
+                <label for="address" class="block text-sm font-medium text-gray-700 flex items-center">
+                  <Icon name="mdi:map-marker" class="h-4 w-4 mr-1.5 text-teal-600" />
+                  Address
                 </label>
                 <div class="relative">
-                  <input
-                    type="text"
-                    id="phone"
-                    v-model="formData.phone"
+                  <textarea
+                    id="address"
+                    v-model="formData.metadata.address"
+                    rows="2"
                     :class="[
-                      'mt-1 block w-full border rounded-lg shadow-sm py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm transition',
-                      errors.phone ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-teal-500'
+                      'mt-1 block w-full border rounded-lg shadow-sm py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm transition resize-none',
+                      errors['metadata.address'] ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-teal-500'
                     ]"
-                    placeholder="Phone number"
-                  />
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Icon name="mdi:phone" class="h-5 w-5 text-gray-400" />
+                    placeholder="Enter address"
+                  ></textarea>
+                  <div class="absolute top-3 left-0 pl-3 flex items-start pointer-events-none">
+                    <Icon name="mdi:map-marker" class="h-5 w-5 text-gray-400" />
                   </div>
                 </div>
-                <p v-if="errors.phone" class="mt-1 text-sm text-red-600 flex items-center">
+                <p v-if="errors['metadata.address']" class="mt-1 text-sm text-red-600 flex items-center">
                   <Icon name="mdi:alert-circle" class="h-4 w-4 mr-1" />
-                  {{ errors.phone }}
+                  {{ errors['metadata.address'] }}
                 </p>
               </div>
               
-              <!-- Email Field -->
-              <div class="space-y-1">
-                <label for="email" class="block text-sm font-medium text-gray-700 flex items-center">
-                  <Icon name="mdi:email" class="h-4 w-4 mr-1.5 text-teal-600" />
-                  Email
-                </label>
-                <div class="relative">
-                  <input
-                    type="email"
-                    id="email"
-                    v-model="formData.email"
-                    :class="[
-                      'mt-1 block w-full border rounded-lg shadow-sm py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm transition',
-                      errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-teal-500'
-                    ]"
-                    placeholder="Email address"
-                  />
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Icon name="mdi:email" class="h-5 w-5 text-gray-400" />
+              <!-- Two Column Layout for Phone and Email -->
+              <div class="grid grid-cols-2 gap-4">
+                <!-- Phone Field -->
+                <div class="space-y-1">
+                  <label for="phone" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <Icon name="mdi:phone" class="h-4 w-4 mr-1.5 text-teal-600" />
+                    Phone
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="phone"
+                      v-model="formData.metadata.phone"
+                      :class="[
+                        'mt-1 block w-full border rounded-lg shadow-sm py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm transition',
+                        errors['metadata.phone'] ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-teal-500'
+                      ]"
+                      placeholder="Phone number"
+                    />
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Icon name="mdi:phone" class="h-5 w-5 text-gray-400" />
+                    </div>
                   </div>
+                  <p v-if="errors['metadata.phone']" class="mt-1 text-sm text-red-600 flex items-center">
+                    <Icon name="mdi:alert-circle" class="h-4 w-4 mr-1" />
+                    {{ errors['metadata.phone'] }}
+                  </p>
                 </div>
-                <p v-if="errors.email" class="mt-1 text-sm text-red-600 flex items-center">
-                  <Icon name="mdi:alert-circle" class="h-4 w-4 mr-1" />
-                  {{ errors.email }}
-                </p>
+                
+                <!-- Email Field -->
+                <div class="space-y-1">
+                  <label for="email" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <Icon name="mdi:email" class="h-4 w-4 mr-1.5 text-teal-600" />
+                    Email
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="email"
+                      id="email"
+                      v-model="formData.metadata.email"
+                      :class="[
+                        'mt-1 block w-full border rounded-lg shadow-sm py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm transition',
+                        errors['metadata.email'] ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-teal-500'
+                      ]"
+                      placeholder="Email address"
+                    />
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Icon name="mdi:email" class="h-5 w-5 text-gray-400" />
+                    </div>
+                  </div>
+                  <p v-if="errors['metadata.email']" class="mt-1 text-sm text-red-600 flex items-center">
+                    <Icon name="mdi:alert-circle" class="h-4 w-4 mr-1" />
+                    {{ errors['metadata.email'] }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -268,13 +276,23 @@ const formData = ref({
   name: '',
   code: '',
   type: '',
-  address: '',
-  phone: '',
-  email: ''
+  metadata: {
+    address: '',
+    phone: '',
+    email: ''
+  }
 })
 
 const handleSubmit = () => {
-  emit('submit', formData.value)
+  // Create a copy of the form data
+  const payload = {
+    name: formData.value.name,
+    code: formData.value.code,
+    type: formData.value.type,
+    metadata: JSON.stringify(formData.value.metadata)
+  }
+  
+  emit('submit', payload)
 }
 
 // Reset form when modal is opened
@@ -284,9 +302,11 @@ watch(() => props.show, (newVal) => {
       name: '',
       code: '',
       type: '',
-      address: '',
-      phone: '',
-      email: ''
+      metadata: {
+        address: '',
+        phone: '',
+        email: ''
+      }
     }
   }
 })

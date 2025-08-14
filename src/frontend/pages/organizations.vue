@@ -1,4 +1,3 @@
-<!-- pages/organizations.vue -->
 <template>
   <div>
     <UIOrganizationList 
@@ -66,30 +65,23 @@ const createOrganization = async (formData) => {
       body: formData
     })
     
-    // Close modal
     closeModal()
     
-    // Show success message
     showSuccessMessage.value = true
     setTimeout(() => {
       showSuccessMessage.value = false
     }, 3000)
-    
-    // Refresh the organizations list
+
     refresh()
   } catch (err) {
-    // Handle different error response formats
     if (err.response) {
       const { status, data } = err.response
-      // Handle validation errors (422)
       if (status === 422 && data.errors) {
         formErrors.value = data.errors
       }
-      // Handle other API errors (like 404 for duplicate code)
       else if (err.message) {
         apiErrorMessage.value = err.message
-        
-        // If it's a code error, highlight the code field
+      
         if (data.message.toLowerCase().includes('code')) {
           formErrors.value.code = data.message
         }

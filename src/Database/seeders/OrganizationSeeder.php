@@ -13,9 +13,11 @@ class OrganizationSeeder extends Seeder
             'name' => 'Ministry of Public Administration',
             'code' => 'MOPA',
             'type' => 'ministry',
-            'address' => 'Bangladesh Secretariat, Dhaka',
-            'phone' => '02-12345678',
-            'email' => 'mopa@mopa.gov.bd',
+            'metadata' => json_encode([
+                'address' => 'Bangladesh Secretariat, Dhaka',
+                'phone' => '02-12345678',
+                'email' => 'mopa@mopa.gov.bd'
+            ]),
         ]);
 
         $ministry->setTranslation('name', 'bn', 'জনপ্রশাসন মন্ত্রণালয়');
@@ -26,9 +28,11 @@ class OrganizationSeeder extends Seeder
             'code' => 'PAD',
             'type' => 'division',
             'parent_id' => $ministry->id,
-            'address' => 'Bangladesh Secretariat, Dhaka',
-            'phone' => '02-87654321',
-            'email' => 'pad@mopa.gov.bd',
+            'metadata' => json_encode([
+                'address' => 'Bangladesh, Dhaka',
+                'phone' => '02-87654321',
+                'email' => 'pad@mopa.gov.bd'
+            ]),
         ]);
 
         $division->setTranslation('name', 'bn', 'জনপ্রশাসন বিভাগ');
@@ -39,9 +43,11 @@ class OrganizationSeeder extends Seeder
             'code' => 'CICO',
             'type' => 'office',
             'parent_id' => $division->id,
-            'address' => 'Dhaka',
-            'phone' => '02-11223344',
-            'email' => 'cico@mopa.gov.bd',
+            'metadata' => json_encode([
+                'address' => 'Dhaka',
+                'phone' => '02-11223344',
+                'email' => 'cico@mopa.gov.bd'
+            ])
         ]);
 
         $office->setTranslation('name', 'bn', 'প্রধান তথ্য কমিশনারের কার্যালয়');

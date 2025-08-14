@@ -19,7 +19,7 @@ return new class extends Migration
             $table->json('metadata')
                     ->nullable()
                     ->comment('additional metadata for the organization');
-
+            $table->timestamps();           
             $table->foreignId('parent_id')->nullable()->references('id')->on('organizations');
         });
     }
