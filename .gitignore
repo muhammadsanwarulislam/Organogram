@@ -1,0 +1,48 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+vendor
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+
+# === Core System Files ===
+.DS_Store
+.idea
+*.swp
+*.swo
+Thumbs.db
+
+# === Vue 3 Generic Ignores ===
+# Applies to any Vue project in subdirectories
+**/node_modules/
+**/dist/
+**/.env.local
+**/package-lock.json
+**/yarn.lock
+**/.vscode/
+
+# === Editor/IDE ===
+**/.vscode/
+**/.history/
+**/*.code-workspace
