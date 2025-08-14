@@ -1,6 +1,6 @@
 # Organogram Management Package for Laravel
 
-A comprehensive Laravel package for managing organizational structures, specifically designed for Bangladesh government offices. This package provides tools to visualize organograms, manage employee data, and streamline reporting relationships.
+A comprehensive Laravel package for managing organizational structures, specifically designed for any kind of government offices or organization. This package provides tools to visualize organograms, manage employee data, and streamline reporting relationships.
 
 ## ✨ Features
 
@@ -18,7 +18,7 @@ A comprehensive Laravel package for managing organizational structures, specific
 
 - PHP 8.0 or higher
 - Laravel 10, 11, or 12
-- MySQL 5.7+ or PostgreSQL 9.2+
+- MySQL 5.7
 
 ## 🚀 Installation
 
@@ -28,19 +28,7 @@ A comprehensive Laravel package for managing organizational structures, specific
 composer require sanwarul/organogram
 ```
 
-### 2. Publish Package Assets
-
-```bash
-php artisan vendor:publish --provider="Sanwarul\Organogram\Providers\OrganogramServiceProvider"
-```
-
-### 3. Run Migrations
-
-```bash
-php artisan migrate
-```
-
-### 4. Install Package (Recommended)
+### 2. Install Package (Recommended)
 
 The package includes an installation command that will set up everything:
 
@@ -54,13 +42,6 @@ This command will:
 - Seed the database with sample data
 - Optionally install the frontend
 
-## ⚙️ Configuration
-
-After installation, you can publish the configuration file:
-
-```bash
-php artisan vendor:publish --provider="Sanwarul\Organogram\Providers\OrganogramServiceProvider" --tag="config"
-```
 
 ## 📖 Usage
 
@@ -124,39 +105,6 @@ The package provides the following API endpoints:
 | GET | `/api/organogram/{id}` | Get organization tree |
 | GET | `/api/organogram/{id}/employees` | Get employees in organization |
 
-## 🎨 Frontend Integration
-
-The package includes a Nuxt.js frontend that you can install:
-
-```bash
-php artisan organogram:install
-```
-
-Choose "API + Frontend" when prompted. This will:
-- Install the frontend in `organogram-frontend/`
-- Set up the necessary configuration
-- Provide instructions for running the frontend
-
-## 🛠️ Commands
-
-### Install Command
-
-```bash
-php artisan organogram:install
-```
-
-Installs the complete package with optional frontend.
-
-### Seed Command
-
-```bash
-php artisan organogram:seed
-```
-
-Seeds the database with sample organizational data including:
-- Ministry of Public Administration
-- Public Administration Division
-- Chief Information Commissioner Office
 
 ## 🗄️ Database Schema
 
@@ -197,14 +145,6 @@ The package seeds a sample organizational structure:
 Ministry of Public Administration (MOPA)
 └── Public Administration Division (PAD)
     └── Chief Information Commissioner Office (CICO)
-```
-
-## 🧪 Testing
-
-Run the package tests:
-
-```bash
-composer test
 ```
 
 ## 🤝 Contributing
