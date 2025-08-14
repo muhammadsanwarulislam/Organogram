@@ -54,9 +54,11 @@ $ministry = Organization::create([
     'name' => 'Ministry of Public Administration',
     'code' => 'MOPA',
     'type' => 'ministry',
-    'address' => 'Bangladesh Secretariat, Dhaka',
-    'phone' => '02-12345678',
-    'email' => 'mopa@mopa.gov.bd',
+    'metadata' => json_encode([
+                'address' => 'Bangladesh Secretariat, Dhaka',
+                'phone' => '02-12345678',
+                'email' => 'mopa@mopa.gov.bd'
+    ]),
 ]);
 
 // Add Bangla translation
@@ -72,9 +74,11 @@ $division = Organization::create([
     'code' => 'PAD',
     'type' => 'division',
     'parent_id' => $ministry->id,
-    'address' => 'Bangladesh Secretariat, Dhaka',
-    'phone' => '02-87654321',
-    'email' => 'pad@mopa.gov.bd',
+    'metadata' => json_encode([
+                'address' => 'Bangladesh Secretariat, Dhaka',
+                'phone' => '02-12345678',
+                'email' => 'mopa@mopa.gov.bd'
+    ]),
 ]);
 ```
 
@@ -98,6 +102,36 @@ The package provides the following API endpoints:
 | PUT | `/api/organizations/{id}` | Update organization |
 | DELETE | `/api/organizations/{id}` | Delete organization |
 
+### Departments
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/departments` | List all departments |
+| POST | `/api/departments` | Create new departments |
+| GET | `/api/departments/{id}` | Get departments details |
+| PUT | `/api/departments/{id}` | Update departments |
+| DELETE | `/api/departments/{id}` | Delete departments |
+
+### Positions
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/positions` | List all positions |
+| POST | `/api/positions` | Create new positions |
+| GET | `/api/positions/{id}` | Get positions details |
+| PUT | `/api/positions/{id}` | Update positions |
+| DELETE | `/api/positions/{id}` | Delete positions |
+
+### Employees
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/employees` | List all employees |
+| POST | `/api/employees` | Create new employees |
+| GET | `/api/employees/{id}` | Get employees details |
+| PUT | `/api/employees/{id}` | Update employees |
+| DELETE | `/api/employees/{id}` | Delete employees |
+
 ### Organogram
 
 | Method | Endpoint | Description |
@@ -117,9 +151,33 @@ The package provides the following API endpoints:
 | code | string | Unique code |
 | type | string | Organization type (ministry, division, department, office) |
 | parent_id | bigint | Foreign key to parent organization |
-| address | text | Physical address |
-| phone | string | Contact phone |
-| email | string | Contact email |
+| metadata | json | Additional information |
+| created_at | timestamp | Creation timestamp |
+| updated_at | timestamp | Update timestamp |
+
+### Departments Table
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | bigint | Primary key |
+| organization_id | bigint | Foreign key to organization |
+| name | string | Department name |
+| code | string | Unique code |
+| description | text | Description of the department |
+| parent_id | bigint | Foreign key to parent department |
+| created_at | timestamp | Creation timestamp |
+| updated_at | timestamp | Update timestamp |
+
+### Position Table
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | bigint | Primary key |
+| department_id | bigint | Foreign key to department |
+| name | string | Position name |
+| code | string | Unique code |
+| grade | text | Grade of the department |
+| responsibilities | text | Responsibilities |
 | created_at | timestamp | Creation timestamp |
 | updated_at | timestamp | Update timestamp |
 
@@ -166,9 +224,6 @@ If you discover any security related issues, please email muhammad.sanwarul94@gm
 - [Sanwarul Islam](https://github.com/muhammadsanwarulislam)
 - [All Contributors](../../contributors)
 
-## 📄 License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 ## 🆘 Support
 
