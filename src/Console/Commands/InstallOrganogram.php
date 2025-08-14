@@ -69,7 +69,8 @@ class InstallOrganogram extends Command
         $this->info('To run the frontend:');
         $this->info('1. cd organogram-frontend');
         $this->info('2. npm install');
-        $this->info('3. npm run dev');
+        $this->info('3. create a local.env file with your environment variables');
+        $this->info('4. npm run dev');
     }
     
     protected function updateEnvFile()
