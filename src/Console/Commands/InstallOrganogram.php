@@ -69,7 +69,6 @@ class InstallOrganogram extends Command
         $this->info('4. npm run dev');
     }
 
-
     protected function publishModels()
     {
         $this->info('Publishing models...');
