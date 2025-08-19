@@ -15,12 +15,25 @@ return new class extends Migration
                     ->comment('unique code')
                     ->unique();
             $table->string('type')
-                    ->comment('ministry, division, directorate, office, etc.'); 
+                    ->comment('ministry, division, directorate, office, etc.');
+            $table->string('layer')
+                    ->nullable();
+            $table->string('origin')
+                    ->nullable(); 
+            $table->integer('level')
+                    ->default(0)
+                    ->comment('hierarchical level of the organization');
             $table->json('metadata')
                     ->nullable()
                     ->comment('additional metadata for the organization');
+            $table->string('status')
+                    ->default('active')
+                    ->comment('status of the organization (active, inactive, etc.)');
             $table->timestamps();           
             $table->foreignId('parent_id')->nullable()->references('id')->on('organizations');
+
+            //Indexes
+            $table->index(['type', 'layer', 'status', 'parent_id']);
         });
     }
 

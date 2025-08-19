@@ -16,6 +16,9 @@ return new class extends Migration
             $table->integer('grade')->nullable(); // Grade of the position
             $table->text('responsibilities')->nullable();
             $table->timestamps();
+
+            //Indexes
+            $table->index(['department_id', 'code']);
         });
     }
 

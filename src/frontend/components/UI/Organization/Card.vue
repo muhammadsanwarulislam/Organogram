@@ -18,7 +18,6 @@
           <Icon name="mdi:office-building" class="h-6 w-6 text-gray-600" />
         </div>
       </div>
-      
       <div class="mt-4 space-y-2">
         <div v-if="parsedMeta.address" class="flex items-center text-sm text-gray-600">
           <Icon name="mdi:map-marker" class="h-4 w-4 mr-2" />

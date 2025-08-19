@@ -25,7 +25,7 @@ A comprehensive Laravel package for managing organizational structures, specific
 ### 1. Install via Composer
 
 ```bash
-composer require sanwarul/organogram:1.0.0
+composer require sanwarul/organogram:1.0.2
 ```
 
 ### 2. Install Package (Recommended)

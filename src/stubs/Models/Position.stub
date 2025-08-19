@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Sanwarul\Organogram\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Sanwarul\Organogram\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Position extends Model
+class {{ class }} extends Model
 {
     use HasFactory, Translatable;
 
