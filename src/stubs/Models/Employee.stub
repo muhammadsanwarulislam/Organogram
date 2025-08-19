@@ -1,0 +1,91 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Sanwarul\Organogram\Traits\Translatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class {{ class }} extends Model
+{
+    use HasFactory, Translatable;
+
+    protected $fillable = [
+        'position_id',
+        'organization_id',
+        'name',
+        'employee_id',
+        'email',
+        'phone',
+        'joining_date',
+        'reporting_to'
+    ];
+
+    protected $translatable = ['name'];
+
+    protected $casts = [
+        'joining_date' => 'datetime',
+    ];
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function reportsTo()
+    {
+        return $this->belongsTo(Employee::class, 'reporting_to');
+    }
+
+    public function subordinates()
+    {
+        return $this->hasMany(Employee::class, 'reporting_to');
+    }
+
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
+    }
+
+    public function photo()
+    {
+        return $this->morphOne(Attachment::class, 'attachable')->where('extension', 'jpg');
+    }
+
+    // Methods
+    public function getPhotoUrlAttribute()
+    {
+        $photo = $this->photo;
+        return $photo ? asset('storage/' . $photo->path) : null;
+    }
+
+    public function addPhoto($file, $metadata = [])
+    {
+        return $this->addAttachment($file, 'photo', $metadata);
+    }
+
+    public function addAttachment($file, $type = 'document', $metadata = [])
+    {
+        $path = $file->store('attachments', 'public');
+        
+        return $this->attachments()->create([
+            'name' => $type,
+            'file_name' => $file->getClientOriginalName(),
+            'mime_type' => $file->getMimeType(),
+            'extension' => $file->getClientOriginalExtension(),
+            'size' => $file->getSize(),
+            'path' => $path,
+            'hash' => md5_file($file->getRealPath()),
+            'metadata' => array_merge($metadata, [
+                'original_name' => $file->getClientOriginalName(),
+                'type' => $type
+            ])
+        ]);
+    }
+}
