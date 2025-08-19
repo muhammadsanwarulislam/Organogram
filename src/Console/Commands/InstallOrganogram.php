@@ -47,7 +47,7 @@ class InstallOrganogram extends Command
 
         $this->info('Installation completed successfully!');
     }
-
+    
     protected function installFrontend()
     {
         $this->info('Setting up frontend...');
