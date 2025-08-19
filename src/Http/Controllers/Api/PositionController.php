@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sanwarul\Organogram\Controllers\Http\Api;
+namespace Sanwarul\Organogram\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

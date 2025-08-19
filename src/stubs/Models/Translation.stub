@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Sanwarul\Organogram\Models;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Translation extends Model
+class {{ class }} extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'table_name',
         'model_id',
@@ -17,6 +17,6 @@ class Translation extends Model
         'attribute',
         'value'
     ];
-    
+
     public $timestamps = true;
 }

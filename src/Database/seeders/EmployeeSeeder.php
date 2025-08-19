@@ -14,10 +14,11 @@ class EmployeeSeeder extends Seeder
         $ministry = Organization::where('code', 'MOPA')->first();
         $division = Organization::where('code', 'PAD')->first();
         $office = Organization::where('code', 'CICO')->first();
+        $lawMinistry = Organization::where('code', 'LAW')->first();
+        $nhrc = Organization::where('code', 'NHRC')->first();
 
         $ministrySec = Position::where('code', 'MOPA-ADMIN-SEC')->first();
         $ministryAsec = Position::where('code', 'MOPA-ADMIN-ASEC')->first();
-        $ministryJsec = Position::where('code', 'MOPA-FIN-JSEC')->first();
         $divisionSasec = Position::where('code', 'PAD-POLICY-SASEC')->first();
         $divisionAsec = Position::where('code', 'PAD-IMP-ASEC')->first();
         $officeCic = Position::where('code', 'CICO-IC-CIC')->first();
@@ -32,8 +33,7 @@ class EmployeeSeeder extends Seeder
             'phone' => '01711111111',
             'joining_date' => '2020-01-01',
         ]);
-
-        $sec->setTranslation('name', 'bn', 'মোদুল করিম');
+        $sec->setTranslation('name', 'bn', 'মোহাম্মদ আব্দুল করিম');
 
         $asec = Employee::create([
             'position_id' => $ministryAsec->id,
@@ -45,21 +45,7 @@ class EmployeeSeeder extends Seeder
             'joining_date' => '2021-02-15',
             'reporting_to' => $sec->id,
         ]);
-
         $asec->setTranslation('name', 'bn', 'ফাতেমা বেগম');
-
-        $jsec = Employee::create([
-            'position_id' => $ministryJsec->id,
-            'organization_id' => $ministry->id,
-            'name' => 'Ahmed Hossain',
-            'employee_id' => 'MOPA-003',
-            'email' => 'jsec@mopa.gov.bd',
-            'phone' => '01733333333',
-            'joining_date' => '2022-03-20',
-            'reporting_to' => $asec->id,
-        ]);
-
-        $jsec->setTranslation('name', 'bn', 'আহমেদ হোসাইন');
 
         $sasec = Employee::create([
             'position_id' => $divisionSasec->id,
@@ -70,7 +56,6 @@ class EmployeeSeeder extends Seeder
             'phone' => '01744444444',
             'joining_date' => '2021-05-10',
         ]);
-
         $sasec->setTranslation('name', 'bn', 'রহিম উদ্দিন');
 
         $asec2 = Employee::create([
@@ -83,7 +68,6 @@ class EmployeeSeeder extends Seeder
             'joining_date' => '2022-07-01',
             'reporting_to' => $sasec->id,
         ]);
-
         $asec2->setTranslation('name', 'bn', 'সালমা আক্তার');
 
         $cic = Employee::create([
@@ -95,7 +79,50 @@ class EmployeeSeeder extends Seeder
             'phone' => '01766666666',
             'joining_date' => '2019-09-15',
         ]);
-
         $cic->setTranslation('name', 'bn', 'ড. কামাল উদ্দিন');
+
+        // Add sample attachments (in a real seeder, you would use actual files)
+        // For now, we'll just create attachment records
+        $this->createSampleAttachments([$sec, $asec, $sasec, $asec2, $cic]);
+    }
+
+    private function createSampleAttachments($employees)
+    {
+        foreach ($employees as $employee) {
+            // Create a photo attachment record
+            $employee->attachments()->create([
+                'name' => 'photo',
+                'file_name' => $employee->employee_id . '.jpg',
+                'mime_type' => 'image/jpeg',
+                'extension' => 'jpg',
+                'size' => 62000, // 62KB
+                'path' => 'attachments/employees/' . $employee->employee_id . '.jpg',
+                'disk' => 'public',
+                'hash' => md5($employee->employee_id . 'photo'),
+                'metadata' => json_encode([
+                    'type' => 'photo',
+                    'width' => 300,
+                    'height' => 300,
+                    'alt' => $employee->name . ' photo'
+                ])
+            ]);
+
+            // Create a document attachment record
+            $employee->attachments()->create([
+                'name' => 'cv',
+                'file_name' => $employee->employee_id . '_cv.pdf',
+                'mime_type' => 'application/pdf',
+                'extension' => 'pdf',
+                'size' => 256000, // 256KB
+                'path' => 'attachments/employees/' . $employee->employee_id . '_cv.pdf',
+                'disk' => 'public',
+                'hash' => md5($employee->employee_id . 'cv'),
+                'metadata' => json_encode([
+                    'type' => 'cv',
+                    'pages' => 2,
+                    'title' => $employee->name . ' CV'
+                ])
+            ]);
+        }
     }
 }

@@ -1,0 +1,78 @@
+<?php
+declare(strict_types=1);
+
+namespace Sanwarul\Organogram\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Attachment extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'attachable_type',
+        'attachable_id',
+        'name',
+        'file_name',
+        'mime_type',
+        'extension',
+        'size',
+        'path',
+        'disk',
+        'hash',
+        'metadata'
+    ];
+
+    protected $casts = [
+        'metadata' => 'array',
+        'size' => 'integer'
+    ];
+
+    // Relationships
+    public function attachable()
+    {
+        return $this->morphTo();
+    }
+
+    // Accessors
+    public function getUrlAttribute()
+    {
+        return $this->disk === 'public' ? asset('storage/' . $this->path) : $this->path;
+    }
+
+    public function getHumanReadableSizeAttribute()
+    {
+        $bytes = $this->size;
+        
+        if ($bytes >= 1073741824) {
+            return number_format($bytes / 1073741824, 2) . ' GB';
+        } elseif ($bytes >= 1048576) {
+            return number_format($bytes / 1048576, 2) . ' MB';
+        } elseif ($bytes >= 1024) {
+            return number_format($bytes / 1024, 2) . ' KB';
+        } elseif ($bytes > 1) {
+            return $bytes . ' bytes';
+        } elseif ($bytes == 1) {
+            return '1 byte';
+        } else {
+            return '0 bytes';
+        }
+    }
+
+    public function getIsImageAttribute()
+    {
+        return in_array($this->extension, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']);
+    }
+
+    // Scopes
+    public function scopeImages($query)
+    {
+        return $query->whereIn('extension', ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']);
+    }
+
+    public function scopeDocuments($query)
+    {
+        return $query->whereNotIn('extension', ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']);
+    }
+}

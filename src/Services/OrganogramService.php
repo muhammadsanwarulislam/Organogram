@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Sanwarul\Organogram\Services;
 
@@ -29,6 +30,15 @@ class OrganogramService
         return $tree;
     }
 
+    public function getOrganizationStatistics(Organization $organization)
+    {
+        $statistics = [
+            'total_departments' => $organization->departments()->count(),
+            'total_employees' => $organization->employees()->count(),
+        ];
+
+        return $statistics;
+    }
     private function buildDepartmentNode($department)
     {
         $node = [

@@ -16,6 +16,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
             $table->foreignId('parent_id')->nullable()->references('id')->on('departments');
+
+            // Indexes
+            $table->index(['organization_id', 'parent_id']);
         });
     }
 
