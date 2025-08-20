@@ -22,6 +22,11 @@
                     exact-active-class="bg-teal-50 text-teal-700">
                     Organizations
                 </NuxtLink>
+                <NuxtLink to="/setup"
+                    class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                    exact-active-class="bg-teal-50 text-teal-700">
+                    setup
+                </NuxtLink>
             </nav>
         </div>
     </header>

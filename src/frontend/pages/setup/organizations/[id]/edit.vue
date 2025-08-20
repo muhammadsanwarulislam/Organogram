@@ -15,7 +15,7 @@
 import { useApiService } from '~/composables/useApiService';
 import { parseMetadata } from '~/utils/helpers';
 
-definePageMeta({ layout: "admin" });
+definePageMeta({ layout: "setup" });
 const api = useApiService();
 const router = useRouter();
 const route = useRoute();
@@ -79,13 +79,13 @@ const updateOrganization = async (formData) => {
   
   try {
     await api.organizations.update(route.params.id, orgData);
-    router.push('/admin/organizations/list');
+    router.push('/setup/organizations/list');
   } catch (error) {
     console.error('Failed to update organization:', error);
   }
 };
 
 const cancel = () => {
-  router.push('/admin/organizations/list');
+  router.push('/setup/organizations/list');
 };
 </script>

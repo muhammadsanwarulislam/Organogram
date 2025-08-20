@@ -11,7 +11,7 @@
 
 <script setup>
 import { useApiService } from '~/composables/useApiService';
-definePageMeta({ layout: "admin" });
+definePageMeta({ layout: "setup" });
 
 const api = useApiService();
 const router = useRouter();
@@ -50,13 +50,13 @@ const createOrganization = async (formData) => {
   orgData.metadata = JSON.stringify(metadata);
   try {
     await api.organizations.create(orgData);
-    router.push('/admin/organizations/list');
+    router.push('/setup/organizations/list');
   } catch (error) {
     console.error('Failed to create organization:', error);
   }
 };
 
 const cancel = () => {
-  router.push('/admin/organizations/list');
+  router.push('/setup/organizations/list');
 };
 </script>

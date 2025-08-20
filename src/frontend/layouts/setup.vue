@@ -1,4 +1,3 @@
-<!-- layouts/admin.vue -->
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Sidebar -->
@@ -44,11 +43,11 @@
 const route = useRoute();
 
 const navigation = [
-  { name: 'Dashboard', path: '/admin', icon: 'mdi:view-dashboard' },
-  { name: 'Organizations', path: '/admin/organizations/list', icon: 'mdi:office-building' },
-  { name: 'Employees', path: '/admin/employees/list', icon: 'mdi:account-group' },
-  { name: 'Departments', path: '/admin/departments/list', icon: 'mdi:domain' },
-  { name: 'Positions', path: '/admin/positions/list', icon: 'mdi:briefcase-account' }
+  { name: 'Dashboard', path: '/setup', icon: 'mdi:view-dashboard' },
+  { name: 'Organizations', path: '/setup/organizations/list', icon: 'mdi:office-building' },
+  { name: 'Employees', path: '/setup/employees/list', icon: 'mdi:account-group' },
+  { name: 'Departments', path: '/setup/departments/list', icon: 'mdi:domain' },
+  { name: 'Positions', path: '/setup/positions/list', icon: 'mdi:briefcase-account' }
 ];
 
 const pageTitle = computed(() => {
