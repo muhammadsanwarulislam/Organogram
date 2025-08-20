@@ -16,7 +16,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useApiService } from '~/composables/useApiService';
-definePageMeta({ layout: "admin" });
+definePageMeta({ layout: "setup" });
 
 const api = useApiService();
 const router = useRouter();
@@ -35,11 +35,11 @@ const columns = [
 ];
 
 const navigateToCreate = () => {
-  router.push('/admin/employees/create');
+  router.push('/setup/employees/create');
 };
 
 const navigateToEdit = (organization) => {
-  router.push(`/admin/employees/${organization.id}/edit`);
+  router.push(`/setup/employees/${organization.id}/edit`);
 };
 
 const confirmDelete = async (organization) => {

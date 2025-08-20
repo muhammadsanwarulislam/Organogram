@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <UICommonBaseCrud
-      title="departments"
-      :items="departments"
+      title="Organizations"
+      :items="organizations"
       :columns="columns"
       :pending="pending"
       :error="error"
@@ -14,36 +14,35 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import { useApiService } from '~/composables/useApiService';
-definePageMeta({ layout: "admin" });
+definePageMeta({ layout: "setup" });
 
 const api = useApiService();
 const router = useRouter();
 
-const { data: departments, pending, error, refresh } = await useAsyncData(
-  'departments',
-  () => api.departments.getAll()
+const { data: organizations, pending, error, refresh } = await useAsyncData(
+  'organizations',
+  () => api.organizations.getAll()
 );
 
 const columns = [
   { key: 'name', label: 'Name' },
   { key: 'code', label: 'Code' },
-  { key: 'organization', label: 'Organization', format: (org) => org.name },
+  { key: 'type', label: 'Type' },
   { key: 'created_at', label: 'Created', format: (date) => formatDate(date) }
 ];
 
 const navigateToCreate = () => {
-  router.push('/admin/departments/create');
+  router.push('/setup/organizations/create');
 };
 
 const navigateToEdit = (organization) => {
-  router.push(`/admin/departments/${organization.id}/edit`);
+  router.push(`/setup/organizations/${organization.id}/edit`);
 };
 
 const confirmDelete = async (organization) => {
   try {
-    await api.departments.delete(organization.id);
+    await api.organizations.delete(organization.id);
     refresh();
   } catch (err) {
     console.error('Failed to delete organization:', err);

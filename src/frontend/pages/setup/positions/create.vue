@@ -12,7 +12,7 @@
 import { computed } from 'vue';
 import { useApiService } from '~/composables/useApiService';
 
-definePageMeta({ layout: "admin" });
+definePageMeta({ layout: "setup" });
 const api = useApiService();
 const router = useRouter();
 
@@ -68,13 +68,13 @@ const fields = computed(() => [
 const createPosition = async (formData) => {
   try {
     await api.positions.create(formData);
-    router.push('/admin/positions/list');
+    router.push('/setup/positions/list');
   } catch (error) {
     console.error('Failed to create position:', error);
   }
 };
 
 const cancel = () => {
-  router.push('/admin/positions/list');
+  router.push('/setup/positions/list');
 };
 </script>

@@ -15,7 +15,7 @@
 
 <script setup>
 import { useApiService } from '~/composables/useApiService';
-definePageMeta({ layout: "admin" });
+definePageMeta({ layout: "setup" });
 
 const api = useApiService();
 const router = useRouter();
@@ -33,11 +33,11 @@ const columns = [
 ];
 
 const navigateToCreate = () => {
-  router.push('/admin/positions/create');
+  router.push('/setup/positions/create');
 };
 
 const navigateToEdit = (organization) => {
-  router.push(`/admin/positions/${organization.id}/edit`);
+  router.push(`/setup/positions/${organization.id}/edit`);
 };
 
 const confirmDelete = async (organization) => {

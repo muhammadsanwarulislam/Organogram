@@ -15,7 +15,7 @@
 import { computed } from 'vue';
 import { useApiService } from '~/composables/useApiService';
 
-definePageMeta({ layout: "admin" });
+definePageMeta({ layout: "setup" });
 const api = useApiService();
 const router = useRouter();
 const route = useRoute();
@@ -90,13 +90,13 @@ const fields = computed(() => [
 const updatePosition = async (formData) => {
   try {
     await api.positions.update(route.params.id, formData);
-    router.push('/admin/positions/list');
+    router.push('/setup/positions/list');
   } catch (error) {
     console.error('Failed to update position:', error);
   }
 };
 
 const cancel = () => {
-  router.push('/admin/positions/list');
+  router.push('/setup/positions/list');
 };
 </script>
