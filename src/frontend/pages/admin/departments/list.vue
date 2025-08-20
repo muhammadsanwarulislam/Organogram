@@ -1,0 +1,58 @@
+<template>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <UICommonBaseCrud
+      title="departments"
+      :items="departments"
+      :columns="columns"
+      :pending="pending"
+      :error="error"
+      @create="navigateToCreate"
+      @edit="navigateToEdit"
+      @delete="confirmDelete"
+    />
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+import { useApiService } from '~/composables/useApiService';
+definePageMeta({ layout: "admin" });
+
+const api = useApiService();
+const router = useRouter();
+
+const { data: departments, pending, error, refresh } = await useAsyncData(
+  'departments',
+  () => api.departments.getAll()
+);
+
+const columns = [
+  { key: 'name', label: 'Name' },
+  { key: 'code', label: 'Code' },
+  { key: 'organization', label: 'Organization', format: (org) => org.name },
+  { key: 'created_at', label: 'Created', format: (date) => formatDate(date) }
+];
+
+const navigateToCreate = () => {
+  router.push('/admin/departments/create');
+};
+
+const navigateToEdit = (organization) => {
+  router.push(`/admin/departments/${organization.id}/edit`);
+};
+
+const confirmDelete = async (organization) => {
+  try {
+    await api.departments.delete(organization.id);
+    refresh();
+  } catch (err) {
+    console.error('Failed to delete organization:', err);
+  }
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return 'N/A';
+  const date = new Date(dateString);
+  return date.toLocaleDateString();
+};
+</script>

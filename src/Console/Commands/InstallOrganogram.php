@@ -19,25 +19,12 @@ class InstallOrganogram extends Command
             ['API only', 'API + Frontend'],
             0
         );
-        // Run migrations
-        $this->call('migrate');
-        
-        // Publish seeders
-        $this->call('vendor:publish', [
-            '--provider' => 'Sanwarul\Organogram\Providers\OrganogramServiceProvider',
-            '--tag' => 'organogram-seeders'
-        ]);
-        
-        // Publish migrations
-        $this->call('vendor:publish', [
-            '--provider' => 'Sanwarul\Organogram\Providers\OrganogramServiceProvider',
-            '--tag' => 'organogram-migrations'
-        ]);
 
-        // Seed database
-        $this->call('db:seed', [
-            '--class' => 'Sanwarul\Organogram\Database\Seeders\DatabaseSeeder'
-        ]);
+        $this->call('migrate');
+
+        $this->publishMigrationsAndSeeders();
+
+        $this->seedData();
 
         $this->publishModels();
 
@@ -47,18 +34,35 @@ class InstallOrganogram extends Command
 
         $this->info('Installation completed successfully!');
     }
-    
+
+    protected function publishMigrationsAndSeeders()
+    {
+        $this->call('vendor:publish', [
+            '--provider' => 'Sanwarul\Organogram\Providers\OrganogramServiceProvider',
+            '--tag' => 'organogram-migrations'
+        ]);
+
+        $this->call('vendor:publish', [
+            '--provider' => 'Sanwarul\Organogram\Providers\OrganogramServiceProvider',
+            '--tag' => 'organogram-seeders'
+        ]);
+    }
+
+    protected function seedData()
+    {
+        $this->call('db:seed', [
+            '--class' => 'Sanwarul\Organogram\Database\Seeders\DatabaseSeeder'
+        ]);
+    }
     protected function installFrontend()
     {
         $this->info('Setting up frontend...');
 
-        // Create frontend directory if it doesn't exist
         $frontendPath = base_path('organogram-frontend');
         if (!File::exists($frontendPath)) {
             File::makeDirectory($frontendPath);
         }
 
-        // Copy frontend files from package to project
         File::copyDirectory(__DIR__ . '/../../frontend', $frontendPath);
 
         $this->info('Frontend installed successfully!');
@@ -83,7 +87,6 @@ class InstallOrganogram extends Command
 
         $destinationPath = app_path('Models');
 
-        // Create Models directory if it doesn't exist
         if (!File::exists($destinationPath)) {
             File::makeDirectory($destinationPath, 0755, true);
         }
@@ -92,20 +95,15 @@ class InstallOrganogram extends Command
             $stubPath = __DIR__ . '/../../stubs/Models/' . $stubName . '.stub';
             $destination = $destinationPath . '/' . $fileName;
 
-            // Check if file already exists
             if (File::exists($destination) && !$this->option('force')) {
                 $this->error("Model {$fileName} already exists! Use --force to overwrite.");
                 continue;
             }
 
             if (File::exists($stubPath)) {
-                // Get stub content
+
                 $content = File::get($stubPath);
-
-                // Replace class name if needed
                 $content = str_replace('{{ class }}', $stubName, $content);
-
-                // Save to destination
                 File::put($destination, $content);
 
                 $this->info("Published model: {$fileName}");
