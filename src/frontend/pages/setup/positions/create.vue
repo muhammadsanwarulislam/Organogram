@@ -6,15 +6,25 @@
       :submit-action="createPosition" 
       @cancel="cancel" />
   </div>
+
+  <!-- Message Showing Modal-->
+  <UICommonNotificationModal 
+    v-if="showSuccessMessage" 
+    :showSuccessMessage="showSuccessMessage" 
+    :message="message"
+  />
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useApiService } from '~/composables/useApiService';
 
 definePageMeta({ layout: "setup" });
 const api = useApiService();
 const router = useRouter();
+
+const showSuccessMessage = ref(false);
+const message = ref('');
 
 const { data: departments } = await useAsyncData(
   'departments',
@@ -45,8 +55,8 @@ const fields = computed(() => [
     placeholder: 'Enter code'
   },
   {
-    key: 'organization_id',
-    label: 'Parent Department',
+    key: 'department_id',
+    label: 'Department',
     type: 'select',
     options: departmentOptions.value
   },
@@ -67,8 +77,17 @@ const fields = computed(() => [
 
 const createPosition = async (formData) => {
   try {
-    await api.positions.create(formData);
-    router.push('/setup/positions/list');
+    const response = await api.positions.create(formData);
+    refreshNuxtData();
+
+    showSuccessMessage.value = true
+    message.value = response.message;
+
+    setTimeout(() => {
+      showSuccessMessage.value = false
+      router.push('/setup/positions/list');
+    }, 1000)
+
   } catch (error) {
     console.error('Failed to create position:', error);
   }

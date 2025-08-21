@@ -6,15 +6,26 @@
       :submit-action="createOrganization"
       @cancel="cancel"
     />
+
+    <!-- Message Showing Modal-->
+    <UICommonNotificationModal
+      v-if="showSuccessMessage"
+      :showSuccessMessage="showSuccessMessage"
+      :message="message"
+    />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useApiService } from '~/composables/useApiService';
 definePageMeta({ layout: "setup" });
 
 const api = useApiService();
 const router = useRouter();
+
+const showSuccessMessage = ref(false);
+const message = ref('');
 
 const fields = [
   { key: 'name', label: 'Name', type: 'text', required: true },
@@ -49,8 +60,17 @@ const createOrganization = async (formData) => {
   // Add metadata to organization data as a JSON string
   orgData.metadata = JSON.stringify(metadata);
   try {
-    await api.organizations.create(orgData);
-    router.push('/setup/organizations/list');
+    const response = await api.organizations.create(orgData);
+    refreshNuxtData();
+
+    showSuccessMessage.value = true;
+    message.value = response.message;
+    
+    setTimeout(() => {
+      showSuccessMessage.value = false
+      router.push('/setup/organizations/list');
+    }, 1000)
+
   } catch (error) {
     console.error('Failed to create organization:', error);
   }

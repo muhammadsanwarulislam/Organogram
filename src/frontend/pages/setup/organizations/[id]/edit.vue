@@ -8,10 +8,18 @@
       :submit-action="updateOrganization"
       @cancel="cancel"
     />
+
+    <!-- Message Showing Modal-->
+    <UICommonNotificationModal
+      v-if="showSuccessMessage"
+      :showSuccessMessage="showSuccessMessage"
+      :message="message"
+    />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useApiService } from '~/composables/useApiService';
 import { parseMetadata } from '~/utils/helpers';
 
@@ -19,6 +27,9 @@ definePageMeta({ layout: "setup" });
 const api = useApiService();
 const router = useRouter();
 const route = useRoute();
+
+const showSuccessMessage = ref(false);
+const message = ref('');
 
 const { data: organization } = await useAsyncData(
   `organization-${route.params.id}`,
@@ -78,8 +89,17 @@ const updateOrganization = async (formData) => {
   orgData.metadata = JSON.stringify(metadata);
   
   try {
-    await api.organizations.update(route.params.id, orgData);
-    router.push('/setup/organizations/list');
+    const response = await api.organizations.update(route.params.id, orgData);
+    refreshNuxtData();
+
+    showSuccessMessage.value = true
+    message.value = response.message;
+
+    setTimeout(() => {
+      showSuccessMessage.value = false
+      router.push('/setup/organizations/list');
+    }, 1000)
+
   } catch (error) {
     console.error('Failed to update organization:', error);
   }
