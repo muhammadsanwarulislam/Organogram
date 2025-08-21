@@ -16,7 +16,7 @@
       @submit="createOrganization"
     />
     
-    <!-- Success Message -->
+    <!-- Message Showing Modal-->
     <UICommonNotificationModal 
       v-if="showSuccessMessage" 
       :showSuccessMessage="showSuccessMessage" 

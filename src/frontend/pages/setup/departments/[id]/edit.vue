@@ -8,17 +8,26 @@
       :submit-action="updateDepartment" 
       @cancel="cancel" 
     />
+
+    <!-- Message Showing Modal-->
+    <UICommonNotificationModal 
+      v-if="showSuccessMessage" 
+      :showSuccessMessage="showSuccessMessage" 
+      :message="message" />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useApiService } from '~/composables/useApiService';
 
 definePageMeta({ layout: "setup" });
 const api = useApiService();
 const router = useRouter();
 const route = useRoute();
+
+const showSuccessMessage = ref(false);
+const message = ref('');
 
 const { data: department } = await useAsyncData(
   `department-${route.params.id}`,
@@ -42,7 +51,7 @@ const { data: organizations } = await useAsyncData(
 );
 
 const organizationOptions = computed(() => {
-  if (!organizations.value) return [];
+  if (!organizations.value?.length) return [];
   return organizations.value.map(org => ({
     value: org.id,
     label: org.name
@@ -88,14 +97,22 @@ const fields = computed(() => [
     key: 'parent_id', 
     label: 'Parent Department', 
     type: 'select', 
-    value: departmentOptions.value,
+    options: departmentOptions.value
   }
 ]);
 
 const updateDepartment = async (formData) => {
   try {
-    await api.departments.update(route.params.id, formData);
-    router.push('/setup/departments/list');
+    const response = await api.departments.update(route.params.id, formData);
+    refreshNuxtData();
+
+    showSuccessMessage.value = true
+    message.value = response.message;
+    setTimeout(() => {
+      showSuccessMessage.value = false
+      router.push('/setup/departments/list');
+    }, 1000)
+
   } catch (error) {
     console.error('Failed to update department:', error);
   }

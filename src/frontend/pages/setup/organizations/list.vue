@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="container mx-auto px-3 sm:px-3 lg:px-3 py-3">
     <UICommonBaseCrud
       title="Organizations"
       :items="organizations"
