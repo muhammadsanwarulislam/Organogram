@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Sanwarul\Organogram\Http\Controllers\Api\OrganizationController;
-use Sanwarul\Organogram\Http\Controllers\Api\DepartmentController;
-use Sanwarul\Organogram\Http\Controllers\Api\PositionController;
 use Sanwarul\Organogram\Http\Controllers\Api\EmployeeController;
+use Sanwarul\Organogram\Http\Controllers\Api\PositionController;
+use Sanwarul\Organogram\Http\Controllers\Api\DepartmentController;
 use Sanwarul\Organogram\Http\Controllers\Api\OrganogramController;
+use Sanwarul\Organogram\Http\Controllers\Api\OrganizationController;
 
 
 Route::middleware(['api'])->prefix('api')->group(function () {
