@@ -65,7 +65,7 @@ class OrganizationController extends Controller
         }
     }
     
-    public function hierarchy($id)
+    public function hierarchy(int $id)
     {
         try {
             $hierarchy = $this->organizationService->getOrganizationHierarchy($id);
