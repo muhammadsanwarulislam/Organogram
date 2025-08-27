@@ -11,7 +11,7 @@ class DepartmentService
 
     public function getAllDepartments()
     {
-        return $this->departmentRepository->all(['organization', 'parent', 'children', 'positions.employee']);
+        return $this->departmentRepository->all(['organization', 'parent', 'children', 'positions.employee','translations']);
     }
 
     public function createDepartment(Request $request)

@@ -17,7 +17,7 @@ class PositionService
 
     public function getAllPositions()
     {
-        return $this->positionRepository->all(['department', 'employee']);
+        return $this->positionRepository->all(['department', 'employee','translations']);
     }
 
     public function createPosition(Request $request)
