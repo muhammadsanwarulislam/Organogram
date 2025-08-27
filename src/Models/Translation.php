@@ -19,4 +19,9 @@ class Translation extends Model
     ];
     
     public $timestamps = true;
+
+    public function translatable()
+    {
+        return $this->morphTo();
+    }
 }

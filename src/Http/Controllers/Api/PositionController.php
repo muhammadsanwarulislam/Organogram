@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Sanwarul\Organogram\Traits\JsonResponseTrait;
 use Sanwarul\Organogram\Services\Position\PositionService;
+use Sanwarul\Organogram\Traits\Translatable;
 
 class PositionController extends Controller
 {
-    use JsonResponseTrait;
+    use JsonResponseTrait, Translatable;
 
     public function __construct(protected PositionService $positionService){}
 

@@ -8,7 +8,7 @@ use Sanwarul\Organogram\Http\Controllers\Api\OrganogramController;
 use Sanwarul\Organogram\Http\Controllers\Api\OrganizationController;
 
 
-Route::middleware(['api'])->prefix('api')->group(function () {
+Route::middleware(['api','set.localization'])->prefix('api')->group(function () {
     Route::apiResource('organizations', OrganizationController::class);
     Route::get('organizations/{id}/hierarchy', [OrganizationController::class, 'hierarchy']);
     Route::apiResource('departments', DepartmentController::class);
