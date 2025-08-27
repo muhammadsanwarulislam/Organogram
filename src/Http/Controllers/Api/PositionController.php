@@ -4,9 +4,10 @@ namespace Sanwarul\Organogram\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Sanwarul\Organogram\Traits\Translatable;
 use Sanwarul\Organogram\Traits\JsonResponseTrait;
 use Sanwarul\Organogram\Services\Position\PositionService;
-use Sanwarul\Organogram\Traits\Translatable;
+use Sanwarul\Organogram\Http\Resources\Position\PositionResource;
 
 class PositionController extends Controller
 {
@@ -18,7 +19,7 @@ class PositionController extends Controller
     {
         try {
             $positions = $this->positionService->getAllPositions();
-            return $this->successJsonResponse('Positions retrieved successfully', $positions);
+            return $this->successJsonResponse('Positions retrieved successfully', PositionResource::collection($positions));
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }
@@ -28,7 +29,7 @@ class PositionController extends Controller
     {
         try {
             $position = $this->positionService->createPosition($request);
-            return $this->successJsonResponse('Position created successfully', $position);
+            return $this->successJsonResponse('Position created successfully', ['position' => new PositionResource($position)]);
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }
@@ -48,7 +49,7 @@ class PositionController extends Controller
     {
         try {
             $position = $this->positionService->updatePosition($request, $id);
-            return $this->successJsonResponse('Position updated successfully', $position);
+            return $this->successJsonResponse('Position updated successfully', ['position' => new PositionResource($position)]);
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }

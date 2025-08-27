@@ -2,10 +2,11 @@
 declare(strict_types=1);
 namespace Sanwarul\Organogram\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Sanwarul\Organogram\Services\Employee\EmployeeService;
+use App\Http\Controllers\Controller;
 use Sanwarul\Organogram\Traits\JsonResponseTrait;
+use Sanwarul\Organogram\Services\Employee\EmployeeService;
+use Sanwarul\Organogram\Http\Resources\Employee\EmployeeResource;
 
 class EmployeeController extends Controller
 {
@@ -17,7 +18,7 @@ class EmployeeController extends Controller
     {
         try {
             $employees = $this->employeeService->getAllEmployees();
-            return $this->successJsonResponse('Employees retrieved successfully', $employees);
+            return $this->successJsonResponse('Employees retrieved successfully', EmployeeResource::collection($employees));
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }
@@ -27,7 +28,7 @@ class EmployeeController extends Controller
     {
         try {
             $employee = $this->employeeService->createEmployee($request);
-            return $this->successJsonResponse('Employee created successfully', $employee);
+            return $this->successJsonResponse('Employee created successfully', ['employee' => new EmployeeResource($employee)]);
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }
