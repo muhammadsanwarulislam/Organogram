@@ -4,6 +4,7 @@ namespace Sanwarul\Organogram\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Sanwarul\Organogram\Http\Resources\Department\DepartmentResource;
 use Sanwarul\Organogram\Traits\JsonResponseTrait;
 use Sanwarul\Organogram\Services\Department\DepartmentService;
 
@@ -17,7 +18,7 @@ class DepartmentController extends Controller
     {
         try {
             $departments = $this->departmentService->getAllDepartments();
-            return $this->successJsonResponse('Departments retrieved successfully', $departments);
+            return $this->successJsonResponse('Departments retrieved successfully', DepartmentResource::collection($departments));
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }
@@ -27,7 +28,7 @@ class DepartmentController extends Controller
     {
         try {
             $department = $this->departmentService->createDepartment($request);
-            return $this->successJsonResponse('Department created successfully', $department);
+            return $this->successJsonResponse('Department created successfully', ['department' => new DepartmentResource($department)]);
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }
@@ -37,7 +38,7 @@ class DepartmentController extends Controller
     {
         try {
             $department = $this->departmentService->getDepartmentById($id);
-            return $this->successJsonResponse('Department retrieved successfully', $department);
+            return $this->successJsonResponse('Department retrieved successfully', new DepartmentResource($department));
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }
@@ -47,7 +48,7 @@ class DepartmentController extends Controller
     {
         try {
             $department = $this->departmentService->updateDepartment($request, $id);
-            return $this->successJsonResponse('Department updated successfully', $department);
+            return $this->successJsonResponse('Department updated successfully', ['department' => new DepartmentResource($department)]);
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }

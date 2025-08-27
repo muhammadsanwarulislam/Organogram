@@ -31,7 +31,7 @@ const columns = [
   { key: 'name', label: 'Name' },
   { key: 'organization', label: 'Organization', format: (organization) => organization.name },
   { key: 'position', label: 'Position', format: (position) => position.name },
-  { key: 'subordinates', label: 'Subordinates', format: (subordinates) => subordinates.length },
+  { key: 'subordinate', label: 'Subordinates', format: (subordinates) => subordinates.length },
   { key: 'created_at', label: 'Created', format: (date) => formatDate(date) },
 ];
 

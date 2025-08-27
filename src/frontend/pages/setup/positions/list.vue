@@ -29,7 +29,7 @@ const { data: positions, pending, error, refresh } = await useAsyncData(
 const columns = [
   { key: 'name', label: 'Name' },
   { key: 'code', label: 'Code' },
-  { key: 'department', label: 'Department', format: (department) => department.name },
+  { key: 'departments', label: 'Department', format: (department) => department.name },
   { key: 'created_at', label: 'Created', format: (date) => formatDate(date) }
 ];
 

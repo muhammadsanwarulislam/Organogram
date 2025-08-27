@@ -50,6 +50,7 @@ class PositionService
             'department_id' => 'required|exists:departments,id',
             'name'          => 'required|string|max:255',
             'grade'         => 'nullable|integer',
+            'responsibilities' => 'nullable|string',
         ];
 
         if ($id) {
