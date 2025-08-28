@@ -9,11 +9,12 @@ class SetLocalization
 {
     public function handle(Request $request, Closure $next)
     {
-        $locale = $request->header('Accept-Language') ?? $request->query('lang', config('app.locale'));
-        
-        $availableLocales = config('app.available_locales', [config('app.locale')]);
+        $locale = $request->header('Accept-Language') ?? $request->query('lang', config('organogram.available_locales'));
+
+        $availableLocales = config('organogram.available_locales', [config('organogram.locale')]);
 
         if (in_array($locale, $availableLocales)) {
+
             app()->setLocale($locale);
         }
 

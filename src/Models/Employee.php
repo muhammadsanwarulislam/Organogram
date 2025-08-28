@@ -22,7 +22,7 @@ class Employee extends Model
         'reporting_to'
     ];
 
-    protected $translatable = ['name'];
+    protected $translatable = ['name','phone'];
 
     protected $casts = [
         'joining_date' => 'datetime',

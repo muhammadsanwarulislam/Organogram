@@ -34,6 +34,7 @@ class EmployeeSeeder extends Seeder
             'joining_date' => '2020-01-01',
         ]);
         $sec->setTranslation('name', 'bn', 'মোহাম্মদ আব্দুল করিম');
+        $sec->setTranslation('phone', 'bn', '০১৭১১১১১১১১১');
 
         $asec = Employee::create([
             'position_id' => $ministryAsec->id,
@@ -46,6 +47,7 @@ class EmployeeSeeder extends Seeder
             'reporting_to' => $sec->id,
         ]);
         $asec->setTranslation('name', 'bn', 'ফাতেমা বেগম');
+        $asec->setTranslation('phone', 'bn', '০১৭২২২২২২২২');
 
         $sasec = Employee::create([
             'position_id' => $divisionSasec->id,
@@ -57,6 +59,7 @@ class EmployeeSeeder extends Seeder
             'joining_date' => '2021-05-10',
         ]);
         $sasec->setTranslation('name', 'bn', 'রহিম উদ্দিন');
+        $sasec->setTranslation('phone', 'bn', '০১৭৪৪৪৪৪৪৪৪');
 
         $asec2 = Employee::create([
             'position_id' => $divisionAsec->id,
@@ -69,6 +72,7 @@ class EmployeeSeeder extends Seeder
             'reporting_to' => $sasec->id,
         ]);
         $asec2->setTranslation('name', 'bn', 'সালমা আক্তার');
+        $asec2->setTranslation('phone', 'bn', '০১৭৫৫৫৫৫৫৫৫');
 
         $cic = Employee::create([
             'position_id' => $officeCic->id,
@@ -81,8 +85,6 @@ class EmployeeSeeder extends Seeder
         ]);
         $cic->setTranslation('name', 'bn', 'ড. কামাল উদ্দিন');
 
-        // Add sample attachments (in a real seeder, you would use actual files)
-        // For now, we'll just create attachment records
         $this->createSampleAttachments([$sec, $asec, $sasec, $asec2, $cic]);
     }
 
@@ -95,7 +97,7 @@ class EmployeeSeeder extends Seeder
                 'file_name' => $employee->employee_id . '.jpg',
                 'mime_type' => 'image/jpeg',
                 'extension' => 'jpg',
-                'size' => 62000, // 62KB
+                'size' => 62000, 
                 'path' => 'attachments/employees/' . $employee->employee_id . '.jpg',
                 'disk' => 'public',
                 'hash' => md5($employee->employee_id . 'photo'),

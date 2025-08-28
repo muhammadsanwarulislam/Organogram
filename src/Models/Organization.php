@@ -23,7 +23,7 @@ class Organization extends Model
         'parent_id'
     ];
 
-    protected $translatable = ['name'];
+    protected $translatable = ['name','code','type','layer','origin'];
 
     // Boot method for automatic level calculation
     protected static function boot()

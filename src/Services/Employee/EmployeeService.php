@@ -3,8 +3,6 @@ declare(strict_types=1);
 namespace Sanwarul\Organogram\Services\Employee;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Validation\ValidationException;
 use Sanwarul\Organogram\Repositories\Employee\EmployeeRepository;
 use Sanwarul\Organogram\Models\Employee;
 

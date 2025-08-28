@@ -18,7 +18,6 @@ class EmployeeResource extends JsonResource
             'position'      => $this->position,
             'reportsTo'     => $this->reportsTo,
             'subordinate'   => $this->subordinates,
-            'translations'  => $this->translations,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at
         ];

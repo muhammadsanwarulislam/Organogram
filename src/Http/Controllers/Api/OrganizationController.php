@@ -4,6 +4,7 @@ namespace Sanwarul\Organogram\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Sanwarul\Organogram\Http\Resources\Organization\OrganizationResource;
 use Sanwarul\Organogram\Services\Organization\OrganizationService;
 use Sanwarul\Organogram\Traits\JsonResponseTrait;
 
@@ -17,7 +18,7 @@ class OrganizationController extends Controller
     {
         try {
             $organizations = $this->organizationService->getAllOrganizations();
-            return $this->successJsonResponse('Organizations retrieved successfully', $organizations);
+            return $this->successJsonResponse('Organizations retrieved successfully', OrganizationResource::collection($organizations));
         } catch (\Exception $e) {
             return $this->errorJsonResponse($e->getMessage());
         }

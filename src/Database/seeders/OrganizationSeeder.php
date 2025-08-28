@@ -22,6 +22,8 @@ class OrganizationSeeder extends Seeder
             ]),
         ]);
         $ministry->setTranslation('name', 'bn', 'জনপ্রশাসন মন্ত্রণালয়');
+        $ministry->setTranslation('code', 'bn', 'জনপ্রশাসন মন্ত্রণালয়');
+        $ministry->setTranslation('type', 'bn', 'মন্ত্রণালয়');
 
         // Create Public Administration Division
         $division = Organization::create([
