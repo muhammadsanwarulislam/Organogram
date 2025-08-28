@@ -34,12 +34,11 @@ trait Translatable
     public function translate(string $attribute, string $locale = null)
     {
         $locale = $locale ?? app()->getLocale();
-        
+
         $translation = $this->translations()
             ->where('locale', $locale)
             ->where('attribute', $attribute)
             ->first();
-            
         return $translation ? $translation->value : $this->getOriginal($attribute);
     }
 
