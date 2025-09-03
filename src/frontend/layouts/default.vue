@@ -1,14 +1,17 @@
 <template>
-  <div class="min-h-screen bg-gray-50 flex flex-col">
-    <UICommonHeader />
+  <BaseLayout>
+    <template #header>
+      <UICommonHeader name="default-header" />
+    </template>
 
-    <main class="flex-grow">
-      <slot />
-    </main>
+    <slot />
 
-    <UICommonFooter />
-  </div>
+    <template #footer>
+      <UICommonFooter name="default-footer" />
+    </template>
+  </BaseLayout>
 </template>
 
 <script setup>
+import BaseLayout from './base'
 </script>

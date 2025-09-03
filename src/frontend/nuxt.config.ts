@@ -11,7 +11,10 @@ export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: true },
   modules: ['@nuxt/icon'],
-  plugins: ['~/plugins/api.js'],
+  plugins: [
+    '~/plugins/api.js',
+    '~/plugins/init-language.client.ts'
+  ],
   compatibilityDate: '2025-08-13',
   runtimeConfig: {
     public: {

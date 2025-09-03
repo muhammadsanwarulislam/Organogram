@@ -1,32 +1,32 @@
 export const useApiService = () => {
-  const apiBase = useRuntimeConfig().public.apiBase;
-
+  const { $api } = useNuxtApp();
+  
   const getAll = async (resource) => {
-    const response = await $fetch(`${apiBase}/${resource}`);
+    const response = await $api(`/${resource}`);
     return response.data;
   };
 
   const getById = async (resource, id) => {
-    const response = await $fetch(`${apiBase}/${resource}/${id}`);
+    const response = await $api(`/${resource}/${id}`);
     return response.data;
   };
 
   const create = async (resource, data) => {
-    return await $fetch(`${apiBase}/${resource}`, {
+    return await $api(`/${resource}`, {
       method: 'POST',
       body: data
     });
   };
 
   const update = async (resource, id, data) => {
-    return await $fetch(`${apiBase}/${resource}/${id}`, {
+    return await $api(`/${resource}/${id}`, {
       method: 'PUT',
       body: data
     });
   };
 
   const remove = async (resource, id) => {
-    return await $fetch(`${apiBase}/${resource}/${id}`, {
+    return await $api(`/${resource}/${id}`, {
       method: 'DELETE'
     });
   };
@@ -37,7 +37,7 @@ export const useApiService = () => {
     create: (data) => create('organizations', data),
     update: (id, data) => update('organizations', id, data),
     delete: (id) => remove('organizations', id),
-    getHierarchy: (id) => $fetch(`${apiBase}/organizations/${id}/hierarchy`)
+    getHierarchy: (id) => $api(`/organizations/${id}/hierarchy`)
   };
 
   const employees = {

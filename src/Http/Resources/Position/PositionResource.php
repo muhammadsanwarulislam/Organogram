@@ -16,8 +16,8 @@ class PositionResource extends JsonResource
             'code'              => $this->code,
             'grade'             => $this->grade,
             'responsibilities'  => $this->responsibilities,
-            'departments'       => DepartmentResource::collection($this->departments),
-            'employees'         => EmployeeResource::collection($this->employees),
+            'departments'       => new DepartmentResource($this->department),
+            'employees'         => new EmployeeResource($this->employee),
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at
         ];
