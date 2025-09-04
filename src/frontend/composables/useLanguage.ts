@@ -10,7 +10,7 @@ interface Language {
 
 const availableLanguages: Language[] = [
   { code: 'en', name: 'English', icon: 'mdi:flag-outline' },
-  { code: 'bn', name: 'বাংলা', icon: 'mdi:flag' }
+  { code: 'bn', name: 'বাংলা', icon: 'mdi:flag' },
 ];
 
 const currentLanguageCode = ref<LanguageCode>('en');

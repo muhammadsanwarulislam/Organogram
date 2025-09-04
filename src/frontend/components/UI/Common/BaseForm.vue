@@ -15,6 +15,25 @@
             {{ field.label }}
             <span v-if="field.required" class="text-red-500 ml-1">*</span>
           </label>
+
+          <!-- Translation Input -->
+          <div v-if="field.type === 'translation'" class="space-y-4">
+            <div v-for="lang in availableLanguages" :key="lang.code" class="relative">
+              <div class="flex items-center mb-1">
+                <span class="text-xs font-medium text-gray-500">{{ lang.name }}</span>
+                <Icon :name="lang.icon" class="ml-1 h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                :id="`${field.key}-${lang.code}`"
+                v-model="formData[field.key][lang.code]"
+                type="text"
+                :placeholder="field.placeholder"
+                :required="field.required"
+                class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+              />
+              <Icon name="mdi:text" class="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+            </div>
+          </div>
           
           <!-- Text Input -->
           <div v-if="field.type === 'text'" class="relative">
@@ -134,7 +153,9 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
+import { useLanguage } from '~/composables/useLanguage';
 
+const { availableLanguages } = useLanguage();
 const props = defineProps({
   title: {
     type: String,
@@ -167,11 +188,34 @@ const saving = ref(false);
 const errorMessage = ref('');
 const formData = reactive({});
 
-onMounted(() => {
+// Initialize form data
+const initializeFormData = () => {
   props.fields.forEach(field => {
-    formData[field.key] = props.initialData[field.key] || '';
+    if (field.type === 'translation') {
+      // Initialize translation fields with empty strings for each language
+      if (!formData[field.key]) {
+        formData[field.key] = {};
+      }
+      
+      availableLanguages.forEach(lang => {
+        if (!formData[field.key][lang.code]) {
+          formData[field.key][lang.code] = props.initialData[field.key]?.[lang.code] || '';
+        }
+      });
+    } else {
+      // Initialize regular fields
+      if (formData[field.key] === undefined) {
+        formData[field.key] = props.initialData[field.key] || '';
+      }
+    }
   });
-});
+};
+
+// Initialize immediately and also watch for changes
+initializeFormData();
+
+// Watch for field changes to reinitialize if needed
+watch(() => props.fields, initializeFormData, { deep: true, immediate: true });
 
 const getFieldIcon = (type) => {
   const iconMap = {
@@ -180,7 +224,8 @@ const getFieldIcon = (type) => {
     'number': 'mdi:numeric',
     'select': 'mdi:menu-down',
     'textarea': 'mdi:text',
-    'date': 'mdi:calendar'
+    'date': 'mdi:calendar',
+    'translation': 'mdi:translate'
   };
   return iconMap[type] || 'mdi:text';
 };
