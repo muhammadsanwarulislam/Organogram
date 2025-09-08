@@ -55,14 +55,14 @@ const fields = computed(() => [
   {
     key: 'name',
     label: 'Name',
-    type: 'text',
+    type: 'translation',
     required: true,
     placeholder: 'Enter name'
   },
   {
     key: 'code',
     label: 'Code',
-    type: 'text',
+    type: 'translation',
     required: true,
     placeholder: 'Enter code'
   },
