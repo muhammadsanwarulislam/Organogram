@@ -19,7 +19,7 @@ class Department extends Model
         'description'
     ];
 
-    protected $translatable = ['name', 'description'];
+    protected $translatable = ['name', 'code'];
 
     public function organization()
     {

@@ -76,6 +76,7 @@ const fields = computed(() => [
     key: 'name', 
     label: 'Name', 
     type: 'text', 
+    // type: 'translation',
     required: true, 
     placeholder: 'Enter department name' 
   },
@@ -83,6 +84,7 @@ const fields = computed(() => [
     key: 'code', 
     label: 'Code', 
     type: 'text', 
+    // type: 'translation',
     required: true, 
     placeholder: 'Enter department code' 
   },
